@@ -15,6 +15,22 @@ class Stack {
     let result = this.arr.splice(index, 1);
     return result;
   }
+
+  empty() {
+    if (this.arr.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  top() {
+    return this.arr[this.arr.length - 1];
+  }
+
+  bottom() {
+    return this.arr[0];
+  }
 }
 
 let s = new Stack();
@@ -28,3 +44,5 @@ let popValue = s.pop(2);
 console.log("s.pop(2) 실행 이후");
 console.log(s);
 console.log("popValue : " + popValue);
+console.log("s.top() : " + s.top());
+console.log("s.bottom() : " + s.bottom());
