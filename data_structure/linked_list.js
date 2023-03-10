@@ -1,19 +1,3 @@
-const list = {
-  head: {
-    value: 90,
-    next: {
-      value: 10,
-      next: {
-        value: 89,
-        next: {
-          value: 100,
-          next: null,
-        },
-      },
-    },
-  },
-};
-
 class Node {
   constructor(data) {
     this.data = data;

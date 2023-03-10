@@ -7,7 +7,11 @@
 - S.push() : 스택의 가장 윗 데이터 위에 메모리를 생성, 데이터 삽입
 - S.empty() : 스택이 비어있다면 1을 반환하고 그렇지 않다면 0을 반환
 
-<-> 큐(Queue) : FIFO (First In First Out)
+## 큐
+
+- FIFO (First In First Out)
+- Q.shift() : 데이터를 추출
+- push와 shift를 이용해서 enqueue(), dequeue() 함수 구현 가능
 
 ## Array.prototype
 
