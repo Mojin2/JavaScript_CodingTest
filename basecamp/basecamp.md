@@ -21,6 +21,9 @@
 - arr.reverse() : 배열의 순서를 역순으로 바꿈
 - arr.sort() : 정렬함수
 
+- slice(start,[ end]): start부터 end전까지 새로운 배열객체 반환
+- splice(start,count): start부터 count만큼 요소를 지움
+
 ## String 함수
 
 - for (let i of string) : 반복문
