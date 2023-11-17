@@ -50,6 +50,3 @@ function solution(list) {
   }
   console.log(Math.max(...sum) - 1);
 }
-
-// [1,5,2,1,4,3,4,5,2,1]
-// [1,1,2,3,3]
