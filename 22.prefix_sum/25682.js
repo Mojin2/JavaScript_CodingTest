@@ -62,6 +62,3 @@ function solution(list) {
   }
   console.log(Math.min(...answer));
 }
-
-// let [x1, y1, x2, y2] = el;
-// let answer = dp[x2][y2] - dp[x1 - 1][y2] - dp[x2][y1 - 1] + dp[x1 - 1][y1 - 1];
