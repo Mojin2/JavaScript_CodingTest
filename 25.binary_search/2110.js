@@ -24,3 +24,6 @@ function solution(list) {
   arr = arr.reduce((acc, cur) => acc.concat(cur));
   console.log(arr);
 }
+
+// [1 2 4 8 9]
+// [1,2,3,4,5,6,7,8,9]
