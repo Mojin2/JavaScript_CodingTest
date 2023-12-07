@@ -1,29 +1,29 @@
-const fs = require("fs"); // 제출시 삭제
-const path = __dirname + "/2110.txt"; // 제출시 삭제
+let dir = __dirname + "/2110.txt";
+const path = process.platform === "linux" ? "/dev/stdin" : dir;
+const input = require("fs").readFileSync(path).toString().trim().split("\n");
 
-const readline = require("readline");
-const rl = readline.createInterface({
-  // input: process.stdin, // 제출시 활성화
-  input: fs.createReadStream(path), // 제출시 삭제
-  output: process.stdout,
-});
+let [option, ...arr] = input;
+let [N, C] = option.split(" ").map(Number);
+arr = arr.map(Number).sort((a, b) => a - b);
 
-let input = [];
-let list = [];
-rl.on("line", function (line) {
-  input.push(line);
-}).on("close", function () {
-  input.forEach((val) => {
-    list.push(val.split(" ").map((el) => parseInt(el)));
-  });
-  solution(list);
-  process.exit();
-});
-function solution(list) {
-  let [[N, C], ...arr] = list;
-  arr = arr.reduce((acc, cur) => acc.concat(cur));
-  console.log(arr);
+console.log(N, C, arr);
+
+let left = arr[0];
+let right = arr[arr.length - 1];
+
+while (left <= right) {
+  let half = Math.floor((left + right) / 2);
+  let count = 1;
+  let prev = arr[0];
+  for (const cur of arr) {
+    if (cur - prev < half) continue;
+    prev = cur;
+    count += 1;
+  }
+
+  if (count < C) right = half - 1;
+  else left = half + 1;
 }
+console.log(right);
 
-// [1 2 4 8 9]
-// [1,2,3,4,5,6,7,8,9]
+// 1 4 8 , 1 4 9

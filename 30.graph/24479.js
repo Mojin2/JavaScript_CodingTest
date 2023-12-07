@@ -49,3 +49,4 @@ function solution(list) {
   DFS(startNode);
   console.log(answer.join("\n"));
 }
+Number.Max;

@@ -22,12 +22,24 @@ rl.on("line", function (line) {
 function solution(list) {
   let [[K, N], ...array] = list; // K = 4 , N = 11
   array = array.reduce((acc, cur) => acc.concat(cur)).sort((a, b) => a - b);
-  let index = 1;
-  while (true) {
-    let one = parseInt(array[0] / index);
-    let two = parseInt(array[1] / index);
-    let three = parseInt(array[2] / index);
-    let four = parseInt(array[3] / index);
+  let left = 1;
+  let right = Math.max(...array);
+  let max = Number.MIN_SAFE_INTEGER;
+  while (left <= right) {
+    let half = Math.floor((left + right) / 2);
+
+    let count = array
+      .map((el) => Math.floor(el / half))
+      .reduce((acc, cur) => acc + cur);
+
+    if (count >= N) {
+      if (half > max) {
+        max = half;
+      }
+      left = half + 1;
+    } else {
+      right = half - 1;
+    }
   }
-  console.log(array);
+  console.log(max);
 }
