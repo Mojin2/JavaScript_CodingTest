@@ -4,14 +4,25 @@ const input = require("fs").readFileSync(path).toString().trim().split("\n");
 
 let [N, S] = input[0].split(" ").map(Number);
 let arr = input[1].split(" ").map(Number);
-let prefixSum = Array(N).fill(0);
-for (let i = 0; i < N; i++) {
-  if (i === 0) {
-    prefixSum[i] = arr[i];
+
+let leftIndex = 0;
+let rightIndex = 0;
+let answer = Number.MAX_SAFE_INTEGER;
+let sum = arr[0];
+while (leftIndex <= rightIndex && rightIndex < arr.length) {
+  if (arr[leftIndex] >= S || arr[rightIndex] >= S) {
+    answer = 1;
+    break;
+  }
+
+  if (sum < S) {
+    rightIndex++;
+    sum += arr[rightIndex];
   } else {
-    prefixSum[i] = prefixSum[i - 1] + arr[i];
+    answer = Math.min(answer, rightIndex - leftIndex + 1);
+    sum -= arr[leftIndex];
+    leftIndex++;
   }
 }
-console.log(prefixSum);
-let idx1 = 0;
-let idx2 = 0;
+
+answer === Number.MAX_SAFE_INTEGER ? console.log(0) : console.log(answer);
