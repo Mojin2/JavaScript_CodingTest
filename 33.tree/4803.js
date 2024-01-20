@@ -13,36 +13,74 @@ for (let i = 0; i < input.length; i++) {
     graph[from].push(to);
     graph[to].push(from);
   }
-  console.log(graph);
-  isTree(graph, count);
+
+  let ans = 0;
+  let visited = Array(graph.length).fill(0);
+
+  for (let st = 1; st <= n; st++) {
+    if (visited[st] === 0) {
+      if (BFS(graph, st, visited)) ans++;
+    }
+  }
+  if (ans > 1) {
+    console.log(`Case ${count}: A forest of ${ans} trees.`);
+  }
+  if (ans === 1) {
+    console.log(`Case ${count}: There is one tree.`);
+  }
+  if (ans === 0) {
+    console.log(`Case ${count}: No trees.`);
+  }
   count++;
   i = i + m;
 }
+function BFS(graph, start, visited) {
+  let queue = [];
+  queue.push(start);
+  visited[start] = 1;
+  let isTree = true;
 
-function isTree(graph, count) {
-  let trees = 0;
-  let visited = Array(graph.length).fill(false);
-  visited[0] = true;
+  while (queue.length !== 0) {
+    let cur = queue.shift();
 
-  function DFS(node) {
-    visited[node] = true;
-    let tmp = 0;
-    for (let i = 0; i < graph[node].length; i++) {
-      let next = graph[node][i];
-      if (!visited[next]) {
-        DFS(next);
-      } else {
-        tmp++;
+    for (let next of graph[cur]) {
+      if (visited[next] !== 0 && visited[next] !== visited[cur] - 1) {
+        isTree = false;
       }
-    }
-    if (tmp !== 0 && tmp === graph[node].length) {
-      return false;
-    } else {
-      return true;
+      if (visited[next] !== 0) continue;
+      visited[next] = visited[cur] + 1;
+      queue.push(next);
     }
   }
-  while (visited.includes(false)) {
-    let start = visited.indexOf(false);
-    console.log(DFS(start));
-  }
+
+  return isTree;
 }
+
+// function isTree(graph, count) {
+//   let trees = 0;
+//   let visited = Array(graph.length).fill(false);
+//   visited[0] = true;
+//   let check = true;
+//   function DFS(node) {
+//     visited[node] = true;
+//     let tmp = 0;
+//     for (let i = 0; i < graph[node].length; i++) {
+//       let next = graph[node][i];
+//       if (!visited[next]) {
+//         DFS(next);
+//       } else {
+//         tmp++;
+//       }
+//     }
+//     if (tmp !== 0 && tmp === graph[node].length) {
+//       check = false;
+//     }
+//   }
+//   while (visited.includes(false)) {
+//     check = true;
+//     let start = visited.indexOf(false);
+//     DFS(start);
+//     if (check !== false) trees++;
+//   }
+//   console.log(`Case ${count}: ${trees}`);
+// }
