@@ -27,13 +27,41 @@ function fac(n) {
   }
 }
 function solution(list) {
-  let result = [];
+  console.log(list);
   list.shift();
   list.forEach((el) => {
-    let n = Number(el[1]);
-    let k = Number(el[0]);
-    let answer = fac(n) / (fac(n - k) * fac(k));
-    result.push(Math.round(answer));
+    let n = el[1];
+    let arr = Array(n)
+      .fill(0)
+      .map((_, index) => index + 1);
+    let k = el[0];
+
+    let tmp = [];
+    let count = 0;
+    function backtrack(cur) {
+      if (tmp.length === k) {
+        count++;
+        return;
+      }
+
+      for (let i = cur; i < arr.length; i++) {
+        tmp.push(arr[i]);
+        backtrack(i + 1);
+        tmp.pop();
+      }
+    }
+    backtrack(0);
+    console.log(count);
   });
-  console.log(result.join("\n"));
 }
+// function solution(list) {
+//   let result = [];
+//   list.shift();
+//   list.forEach((el) => {
+//     let n = Number(el[1]);
+//     let k = Number(el[0]);
+//     let answer = fac(n) / (fac(n - k) * fac(k));
+//     result.push(Math.round(answer));
+//   });
+//   console.log(result.join("\n"));
+// }
