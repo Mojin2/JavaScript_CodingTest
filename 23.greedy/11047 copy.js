@@ -18,5 +18,4 @@ while (true) {
   idx++;
   if (K === 0) break;
 }
-// 4200
 console.log(count);
