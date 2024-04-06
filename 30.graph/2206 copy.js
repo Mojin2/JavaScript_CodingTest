@@ -43,15 +43,17 @@ class Queue {
 }
 function BFS() {
   let visited = Array.from(Array(N), () =>
-    Array.from(Array(M), () => Array(1).fill(0))
+    Array.from(Array(M), () => Array(2).fill(0))
   );
 
   let queue = new Queue();
-  queue.push([0, 0, 1, 1]); // [x,y,breakCount,time]
+  queue.push([0, 0, 0, 1]); // [x,y,isBreak,time]
 
   while (!queue.isEmpty()) {
-    let [x, y, breakCount, time] = queue.shift();
+    let [x, y, isBreak, time] = queue.shift();
     if (x === N - 1 && y === M - 1) {
+      console.log(visited);
+
       return time;
     }
 
@@ -64,21 +66,21 @@ function BFS() {
       (el) => el[0] >= 0 && el[0] <= N - 1 && el[1] >= 0 && el[1] <= M - 1
     );
 
-    for ([nextX, nextY] of tmp) {
-      if (!visited[nextX][nextY][0]) {
-        if (breakCount === 1 && board[nextX][nextY] === 1) {
-          visited[nextX][nextY][0] = 1;
-          queue.push([nextX, nextY, breakCount - 1, time + 1]);
-        } else if (board[nextX][nextY] === 0) {
-          queue.push([nextX, nextY, breakCount, time + 1]);
-        }
-      } else {
-        if (board[nextX][nextY] === 0) {
-          queue.push([nextX, nextY, breakCount, time + 1]);
-        }
+    for ([nx, ny] of tmp) {
+      if (visited[nx][ny][isBreak]) continue;
+      if (board[nx][ny] && !isBreak) {
+        // 부수는 경우
+        queue.push([nx, ny, isBreak + 1, time + 1]);
+        visited[nx][ny][isBreak + 1] = 1;
+      }
+      if (!board[nx][ny] && !visited[nx][ny][isBreak]) {
+        // 안부수는 경우
+        queue.push([nx, ny, isBreak, time + 1]);
+        visited[nx][ny][isBreak] = 1;
       }
     }
   }
+
   return -1;
 }
 console.log(BFS());

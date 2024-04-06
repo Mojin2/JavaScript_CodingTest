@@ -19,6 +19,7 @@ for (let i = 0; i < input.length; i++) {
     }
   }
 }
+console.log(count);
 let idx = 0;
 while (queue.length !== idx) {
   let cur = queue[idx];
