@@ -69,11 +69,13 @@ function BFS() {
     for ([nx, ny] of tmp) {
       if (visited[nx][ny][isBreak]) continue;
       if (board[nx][ny] && !isBreak) {
+        // board[nx][ny] = 1 , isBreak = 0
         // 부수는 경우
         queue.push([nx, ny, isBreak + 1, time + 1]);
         visited[nx][ny][isBreak + 1] = 1;
       }
       if (!board[nx][ny] && !visited[nx][ny][isBreak]) {
+        // board[nx][ny] = 0
         // 안부수는 경우
         queue.push([nx, ny, isBreak, time + 1]);
         visited[nx][ny][isBreak] = 1;

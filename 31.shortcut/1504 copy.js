@@ -1,10 +1,7 @@
-let dir = __dirname + "/1927.txt";
+let dir = __dirname + "/1504.txt";
 const path = process.platform === "linux" ? "./dev/stdin" : dir;
-const input = require("fs").readFileSync(path).toString().trim().split("\n");
-
-let N = +input.shift();
-let arr = input.join(" ").split(" ").map(Number);
-
+const line = require("fs").readFileSync(path, "utf-8");
+let input = line.trim().split("\n");
 class MinHeap {
   constructor() {
     this.heap = [null];
@@ -19,7 +16,7 @@ class MinHeap {
     return this.size() === 0;
   }
 
-  heappush(value) {
+  push(value) {
     this.heap.push(value);
     let cur = this.heap.length - 1;
     let par = Math.floor(cur / 2);
@@ -31,7 +28,7 @@ class MinHeap {
     }
   }
 
-  heappop() {
+  shift() {
     if (this.size() === 0) {
       return null; // Return null for an empty heap
     }
@@ -71,14 +68,51 @@ class MinHeap {
   }
 }
 
-let minHeap = new MinHeap();
-let answer = [];
-arr.forEach((el) => {
-  if (el === 0) {
-    if (minHeap.isEmpty()) answer.push(0);
-    else answer.push(minHeap.heappop());
-  } else {
-    minHeap.heappush(el);
-  }
+// options
+let [V, E] = input.shift().split(" ").map(Number);
+let target = input.pop().split(" ").map(Number);
+input = input.map((el) => el.split(" ").map(Number));
+let graph = Array.from(Array(V + 1), () => []);
+input.forEach((el) => {
+  let [from, to, weight] = el;
+  graph[from].push([to, weight]);
+  graph[to].push([from, weight]);
 });
-console.log(answer.join("\n"));
+
+function dij(start) {
+  let distance = Array(V + 1).fill(Infinity);
+  let visited = Array(V + 1).fill(0);
+  visited[0] = 1;
+  distance[start] = 0;
+
+  let queue = new MinHeap();
+  queue.push([start, 0]);
+  while (queue.size() > 0) {
+    let [cur, w] = queue.shift();
+
+    for (nextNode of graph[cur]) {
+      let [next, weight] = nextNode;
+      let tmp = distance[cur] + weight;
+      if (distance[next] > tmp) {
+        distance[next] = tmp;
+        queue.push([next, distance[next]]);
+      }
+    }
+  }
+  return distance;
+}
+
+let resStart = dij(1);
+let resV1 = dij(target[0]);
+let resV2 = dij(target[1]);
+
+let result = Math.min(
+  resStart[target[0]] + resV1[target[1]] + resV2[V],
+  resStart[target[1]] + resV2[target[0]] + resV1[V]
+);
+
+if (result === Infinity) {
+  console.log(-1);
+} else {
+  console.log(result);
+}
