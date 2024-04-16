@@ -13,7 +13,6 @@ for i in range(e):
     a,b = map(int,s.readline().split())
     graph[a].append(b)
     graph[b].append(a)
-
     
 def BFS(start,graph):
     visited = [0 for i in range(v+1)]
