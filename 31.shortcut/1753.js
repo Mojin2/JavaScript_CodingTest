@@ -1,3 +1,5 @@
+const { cos } = require("mathjs");
+
 let dir = __dirname + "/1753.txt";
 const path = process.platform === "linux" ? "./dev/stdin" : dir;
 const line = require("fs").readFileSync(path, "utf-8");
@@ -71,6 +73,7 @@ const graph = Array.from(Array(V + 1), () => []);
 input.forEach((el) => {
   const [from, to, weight] = el.split(" ").map(Number);
   graph[from].push([to, weight]);
+  graph[to].push([from, weight]);
 });
 
 //
@@ -89,12 +92,33 @@ while (pq.heap.length > 1) {
   }
 }
 
-console.log(
-  distance
-    .slice(1)
-    .map((el) => {
-      if (el === Infinity) return "INF";
-      else return el;
-    })
-    .join("\n")
-);
+// console.log(
+//   distance
+//     .slice(1)
+//     .map((el) => {
+//       if (el === Infinity) return "INF";
+//       else return el;
+//     })
+//     .join("\n")
+// );
+// 0 2 3 7 1
+console.log(graph);
+
+let cost2 = Array(V + 1).fill(0);
+let visited2 = Array(V + 1).fill(0);
+
+function DFS(visited2, cost2, start) {
+  visited2[start] = 1;
+
+  for (let nextNode of graph[start]) {
+    let [next, nextCost] = nextNode;
+    if (!visited2[next]) {
+      cost2[next] = cost2[start] + nextCost;
+      DFS(visited2, cost2, next);
+    }
+  }
+}
+
+DFS(visited2, cost2, start);
+console.log(cost2);
+console.log(visited2);
