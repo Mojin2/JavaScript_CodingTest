@@ -131,18 +131,22 @@ class Deque {
   }
 }
 function solution(list) {
-  list.shift();
   let de = new Deque();
-  let answer = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i][0] === 1) de.unshift(list[i][1]);
-    if (list[i][0] === 2) de.push(list[i][1]);
-    if (list[i][0] === 3) answer.push(de.shift());
-    if (list[i][0] === 4) answer.push(de.pop());
-    if (list[i][0] === 5) answer.push(de.size());
-    if (list[i][0] === 6) answer.push(de.isEmpty());
-    if (list[i][0] === 7) answer.push(de.front());
-    if (list[i][0] === 8) answer.push(de.back());
-  }
-  console.log(answer.join("\n"));
+  de.unshift(1);
+  de.unshift(2);
+  console.log(de);
+  // list.shift();
+  // let de = new Deque();
+  // let answer = [];
+  // for (let i = 0; i < list.length; i++) {
+  //   if (list[i][0] === 1) de.unshift(list[i][1]);
+  //   if (list[i][0] === 2) de.push(list[i][1]);
+  //   if (list[i][0] === 3) answer.push(de.shift());
+  //   if (list[i][0] === 4) answer.push(de.pop());
+  //   if (list[i][0] === 5) answer.push(de.size());
+  //   if (list[i][0] === 6) answer.push(de.isEmpty());
+  //   if (list[i][0] === 7) answer.push(de.front());
+  //   if (list[i][0] === 8) answer.push(de.back());
+  // }
+  // console.log(answer.join("\n"));
 }

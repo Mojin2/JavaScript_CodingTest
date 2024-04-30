@@ -28,7 +28,7 @@ function solution(list) {
   const tmp = [];
   const backtrack = () => {
     if (tmp.length === r) {
-      console.log(tmp.join(" "));
+      answer.push([...tmp]);
       return;
     }
     for (let i = 0; i < number.length; i++) {
@@ -39,4 +39,5 @@ function solution(list) {
     }
   };
   backtrack();
+  console.log(answer);
 }

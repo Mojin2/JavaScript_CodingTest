@@ -39,3 +39,7 @@ function countBits(num) {
   return count;
 }
 console.log(minCost(n, costs));
+
+const ma = new Map();
+ma.set([1, 2, 3], 1);
+console.log(ma);
