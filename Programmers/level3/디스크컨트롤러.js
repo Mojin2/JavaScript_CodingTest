@@ -64,7 +64,6 @@ function solution(jobs) {
   let sum = 0;
 
   while (true) {
-    // console.log(time);
     //  종료 조건
     if (!jobs.length && !cur.length && !queue.size()) break;
     // 대기 시작 시간에 맞는 작업들 대기 큐에 추가
